@@ -20,3 +20,15 @@ DATABASE_URL=sqlite:///mfd.db?check_same_thread=False
 ## API Reference
 
 - `localhost:8000/docs` - документация `swagger`
+
+## Scraped data
+
+Посмотреть количество данных по каждой из тем статьи можно таким образом:
+
+```sqlite
+SELECT p.topic_id, t.topic_name, COUNT(p.topic_id) amount
+FROM posts p
+JOIN topics t on t.topic_id = p.topic_id
+GROUP BY p.topic_id
+ORDER BY 3 DESC;
+```
