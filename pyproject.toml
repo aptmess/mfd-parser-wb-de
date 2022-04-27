@@ -1,0 +1,34 @@
+
+[tool.poetry]
+name = "WB DE"
+version = "1.0.0"
+description = "WildBerries Data Engineer Test Task"
+authors = ["Aleksandr Shirokov"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.75.0"
+uvicorn = "^0.17.6"
+loguru = "^0.6.0"
+fastapi-utils = "^0.2.1"
+python-multipart = "^0.0.5"
+pydantic = "^1.9.0"
+SQLAlchemy = "^1.4.35"
+Scrapy = "^2.6.1"
+scrapoxy = "^1.11"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.0"
+pytest-cov = "^3.0.0"
+autoflake = "^1.4"
+isort = "^5.10.0"
+black = "^22.1"
+unify = "^0.5"
+flake8 = "^4.0"
+pylint = "^2.12.1"
+mypy = "^0.940"
+pytest-deadfixtures = "^2.2.1"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
