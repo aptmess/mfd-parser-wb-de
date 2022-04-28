@@ -32,9 +32,7 @@ COPY pyproject.toml pyproject.toml
 RUN poetry install $(if test "$ENVIRONMENT" = production; then echo "--no-dev"; fi)
 
 COPY app app
-COPY Makefile Makefile
 COPY scrapper scrapper
-COPY scrapy.cfg scrapy.cfg
 
 ENTRYPOINT []
 CMD ["make", "up"]
