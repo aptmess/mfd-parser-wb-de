@@ -18,9 +18,3 @@ def get_and_check_total_pages(
             f'total number of pages = {total_pages}',
         )
     return page < total_pages
-
-
-def get_total_pages(total_items: int, page_size: int) -> int:
-    total_pages = (total_items - 1) // page_size + 1 if total_items != 0 else 1
-
-    return total_pages

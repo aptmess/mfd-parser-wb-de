@@ -4,8 +4,10 @@ from scrapy.http import Response
 from scrapy.utils.python import to_unicode
 from six.moves.urllib.parse import urljoin
 
-from app.services.pipeline import Compose
-from app.services.transformers import (
+from scrapper.items import AuthorItem, PostItem
+from scrapper.paths import AnonymousAuthorLinks, AUTHORLinks, POSTLinks
+from scrapper.services.pipeline import Compose
+from scrapper.services.transformers import (
     AuthorID,
     AuthorName,
     PostAnsweredPosts,
@@ -15,8 +17,6 @@ from app.services.transformers import (
     PostRating,
     PostText,
 )
-from scrapper.items import AuthorItem, PostItem
-from scrapper.paths import AnonymousAuthorLinks, AUTHORLinks, POSTLinks
 
 
 def parse_comments(response: Response, base_url: str) -> t.Iterator[t.Any]:

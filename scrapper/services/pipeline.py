@@ -1,7 +1,7 @@
 import copy
 from typing import Any, Dict, Tuple, Union
 
-from app.services.transformers import Transformer
+from scrapper.services.transformers import Transformer
 
 
 class Compose:
