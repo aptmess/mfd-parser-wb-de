@@ -13,10 +13,12 @@ DATABASE_URL=sqlite:///mfd_forum.db?check_same_thread=False
 - `make up` - поднятие сервиса на `fastapi`
 - `make docker` - поднятие сервиса в `docker`-контейнере (если расскоментить, то можно поднять отдельно парсер)
 - `make venv` - Создание виртуального окружения и установка зависимостей
-- `make format` - запуск форматтеров кода:
-
+- `make format` - запуск форматтеров кода
 - `make test` - проверка работоспособности тестов (`--cov app: 97%`)
 - `make lint` - запуск линтеров
+- `make ci`
+  - проверка кода соответствию линтерам (`flake8, pylint, mypy, black`)
+  - проверка прохода тестов по `coverage threshold >=90%` 
 
 ## API Reference
 
