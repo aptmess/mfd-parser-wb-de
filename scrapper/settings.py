@@ -8,13 +8,13 @@
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 
-BOT_NAME = 'scrapy_mfd'
+BOT_NAME = 'scrapper'
 
-SPIDER_MODULES = ['scrapy_mfd.spiders']
-NEWSPIDER_MODULE = 'scrapy_mfd.spiders'
+SPIDER_MODULES = ['scrapper.spiders']
+NEWSPIDER_MODULE = 'scrapper.spiders'
 
 ITEM_PIPELINES = {
-    'scrapy_mfd.pipelines.ScrapyMFDPipeline': 300,
+    'scrapper.pipelines.ScrapyMFDPipeline': 300,
 }
 
 CONCURRENT_REQUESTS_PER_DOMAIN = 2

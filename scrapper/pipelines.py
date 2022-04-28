@@ -2,7 +2,7 @@ from itemadapter import ItemAdapter
 
 from app.core.engine import engine, get_session
 from app.core.models import Author, Base, Post, Topic
-from scrapy_mfd.items import AuthorItem, PostItem, TopicItem
+from scrapper.items import AuthorItem, PostItem, TopicItem
 
 
 class ScrapyMFDPipeline:
@@ -28,7 +28,6 @@ class ScrapyMFDPipeline:
                 .all()
             )
             if not author_seen:
-                print('HERE', adapter['author_id'])
                 self.session.add(Author(**adapter))
                 self.session.commit()
         elif isinstance(item, PostItem):
