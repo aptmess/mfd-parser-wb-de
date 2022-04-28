@@ -32,7 +32,7 @@ class SearchByTextInputModel(Pagination):
     class Config:
         schema_extra = {
             'example': {
-                **Pagination.Config.schema_extra['example'],
+                **Pagination.Config.schema_extra['example'],  # type: ignore
                 'text': 'добрый день',
             }
         }

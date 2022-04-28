@@ -1,3 +1,6 @@
+import typing as t
+
+from scrapy.http import Response
 from scrapy.utils.python import to_unicode
 from six.moves.urllib.parse import urljoin
 
@@ -16,7 +19,7 @@ from scrapper.items import AuthorItem, PostItem
 from scrapper.paths import AnonymousAuthorLinks, AUTHORLinks, POSTLinks
 
 
-def parse_comments(response, base_url):
+def parse_comments(response: Response, base_url: str) -> t.Iterator[t.Any]:
     for post in response.xpath(
         "//div[@class='mfd-post' or @class='mfd-post mfd-post-deleted']"
     ):

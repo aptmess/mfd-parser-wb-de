@@ -28,6 +28,7 @@ flake8 = "^4.0"
 pylint = "^2.12.1"
 mypy = "^0.940"
 pytest-deadfixtures = "^2.2.1"
+types-six = "^1.16.15"
 
 [build-system]
 requires = ["poetry>=1.0.0"]

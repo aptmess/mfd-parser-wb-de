@@ -7,20 +7,22 @@ DIV_0_ANONYMOUS = DIV_0 + "/a[@class='mfd-anonymous-link']"
 
 
 class POSTLinks:
-    post_id = 'table/' "/button[@class='mfd-button-attention']" '/@data-id'
-    is_post_deleted = 'table/' "/div[@class='mfd-post-remark']" '/text()'
-    created_at = DIV_1 + "/a[@class='mfd-post-link']" '/text()'
-    post_rating = DIV_2 + '/span' '/text()'
+    post_id = 'table/' + "/button[@class='mfd-button-attention']" + '/@data-id'
+    is_post_deleted = 'table/' + "/div[@class='mfd-post-remark']" + '/text()'
+    created_at = DIV_1 + "/a[@class='mfd-post-link']" + '/text()'
+    post_rating = DIV_2 + '/span' + '/text()'
     answered_posts_ids_path = (
         'table/'
-        "/div[@class='mfd-post-text']"
-        '/blockquote'
-        "/div[@class='mfd-quote-info']"
-        '/a[2]'
-        '/@href'
+        + "/div[@class='mfd-post-text']"
+        + '/blockquote'
+        + "/div[@class='mfd-quote-info']"
+        + '/a[2]'
+        + '/@href'
     )
     post_text = (
-        'table/' "/div[@class='mfd-post-text']" "/div[@class='mfd-quote-text']"
+        'table/'
+        + "/div[@class='mfd-post-text']"
+        + "/div[@class='mfd-quote-text']"
     )
 
 

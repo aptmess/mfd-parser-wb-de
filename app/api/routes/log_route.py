@@ -6,7 +6,7 @@ from loguru import logger
 
 
 class LogRoute(APIRoute):
-    def get_route_handler(self) -> Callable:
+    def get_route_handler(self) -> Callable:  # type: ignore
         original_route_handler = super().get_route_handler()
 
         async def custom_route_handler(request: Request) -> Response:
@@ -23,7 +23,7 @@ class LogRoute(APIRoute):
 
             body = await request.body()
             if body:
-                logger.info(f'request body: {body}')
+                logger.info(f'request body: {body}')  # type: ignore
 
             try:
                 response: Response = await original_route_handler(request)
@@ -33,7 +33,7 @@ class LogRoute(APIRoute):
 
             logger.info(f'route response status_code={response.status_code}')
             if hasattr(response, 'body'):
-                logger.info(f'route response status_code={response.body}')
+                logger.info(f'route response status_code={response.body}')  # type: ignore
             return response
 
         return custom_route_handler

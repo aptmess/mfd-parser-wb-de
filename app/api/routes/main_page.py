@@ -23,7 +23,9 @@ class MainRoutes:
     page_size: int = Depends(get_size)
 
     def get_all_posts_pagination(
-        self, body: Pagination, posts: Query
+        self,
+        body: Pagination,
+        posts: Query,
     ) -> PostsOutput:
         page_size = body.count or self.page_size
         page = body.page
@@ -33,13 +35,15 @@ class MainRoutes:
             get_and_check_total_pages(page, total_posts, page_size)
         else:
             posts = posts.limit(page_size)
-        return {
-            'amount': posts.count(),
-            'result': [u.__dict__ for u in posts.all()],
-        }
+        return PostsOutput(
+            **{
+                'amount': posts.count(),
+                'result': [u.__dict__ for u in posts.all()],
+            }
+        )
 
     @router.post('/search', response_model=PostsOutput)
-    def search_post_by_page(self, body: SearchByTextInputModel):
+    def search_post_by_page(self, body: SearchByTextInputModel) -> PostsOutput:
         """
         Эндпойнт /search для поиска постов по тексту:
             на вход в API приходит запрос с текстом и
@@ -61,7 +65,7 @@ class MainRoutes:
         return self.get_all_posts_pagination(body, posts)
 
     @router.post('/by_thread', response_model=PostsOutput)
-    def search_post_by_thread(self, body: SearchByThread):
+    def search_post_by_thread(self, body: SearchByThread) -> PostsOutput:
         """
         Эндпойнт /by_thread для вывода постов темы:
             на вход подается id темы и лимит числа сообщений
@@ -82,7 +86,7 @@ class MainRoutes:
         return self.get_all_posts_pagination(body, posts)
 
     @router.post('/replies', response_model=PostsOutput)
-    def search_post_by_replies(self, body: SearchByReplies):
+    def search_post_by_replies(self, body: SearchByReplies) -> PostsOutput:
         """
         Эндпойнт /replies для поиска реплаев:
             на входе подается id поста (пример: {"post_id": 20202744})
