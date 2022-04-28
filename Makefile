@@ -16,6 +16,10 @@ help: ## Show this help
 docker:
 	docker-compose up --build
 
+.PHONY: docker_up
+docker_up:
+	docker-compose up -d
+
 .PHONY: up
 up:
 	uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
