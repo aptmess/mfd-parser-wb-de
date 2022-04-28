@@ -1,14 +1,18 @@
 import copy
+from typing import Any, Dict, Tuple, Union
 
 from app.services.transformers import Transformer
 
 
-class Compose(object):
-    def __init__(self, transforms: list[Transformer]):
+class Compose:
+    def __init__(
+        self, transforms: list[Union[Transformer, list[Transformer]]]
+    ) -> None:
         self.transforms = transforms
 
-    def __call__(self, data: dict):
+    def __call__(self, data: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
         input_data = copy.deepcopy(data)
+        result = True
         for t in self.transforms:
             if isinstance(t, Transformer):
                 input_data, result = t.transform(input_data)

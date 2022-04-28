@@ -1,7 +1,14 @@
+import typing as t
+
 from scrapy import Request
+from scrapy.http import Response
 
 
-def parse_posts(response, base_url, parse_comments):
+def parse_posts(
+    response: Response,
+    base_url: str,
+    parse_comments: t.Callable[[t.Any], t.Iterator[t.Any]],
+) -> t.Iterator[t.Any]:
     comments_page_pagination = response.xpath(
         "//a[@class='mfd-paginator-selected']/text()"
     )
