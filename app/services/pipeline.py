@@ -16,7 +16,6 @@ class Compose(object):
             elif isinstance(t, list):
                 for i in t:
                     input_data, result = i.transform(input_data)
-                    print('HERE', result, input_data)
                     if result is True:
                         break
             if result is False:
