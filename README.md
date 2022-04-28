@@ -26,6 +26,10 @@ DATABASE_URL=sqlite:///mfd_forum.db?check_same_thread=False
 
 ## Scraped data
 
+- `authors` - таблица с авторами постов на сайте
+- `topics` - таблица с тредами
+- `posts` - таблица с информацией о постах
+
 Посмотреть количество данных по каждой из тем статьи можно таким образом:
 
 ```sqlite
