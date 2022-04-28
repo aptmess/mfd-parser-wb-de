@@ -1,6 +1,6 @@
 TESTS = tests
 VENV ?= .venv
-CODE = tests app scrapy_mfd
+CODE = app scrapper tests
 
 ifeq ($(OS), Windows_NT)
 SOURCE := $(VENV)/Scripts
@@ -22,7 +22,7 @@ up:
 
 .PHONY: parse
 parse:
-	scrapy runspider scrapy_mfd/spiders/parser_mfd.py
+	scrapy runspider scrapper/spiders/parser_mfd.py
 
 .PHONY: venv
 venv:

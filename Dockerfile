@@ -33,7 +33,7 @@ RUN poetry install $(if test "$ENVIRONMENT" = production; then echo "--no-dev"; 
 
 COPY app app
 COPY Makefile Makefile
-COPY scrapy_mfd scrapy_mfd
+COPY scrapper scrapper
 COPY scrapy.cfg scrapy.cfg
 
 ENTRYPOINT []

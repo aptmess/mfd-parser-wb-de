@@ -116,7 +116,6 @@ class PostAnsweredPosts(Transformer):
     """
 
     def transform(self, input_data: Item) -> (Item, bool):
-        print(self._xpath_value)
         input_data[self._column_name] = ', '.join(
             [i.rpartition('id=')[2] for i in self._xpath_value]
         )
