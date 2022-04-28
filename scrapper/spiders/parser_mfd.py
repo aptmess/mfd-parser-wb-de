@@ -1,4 +1,7 @@
+from typing import Any, Dict, Iterator
+
 from scrapy import Request, Spider
+from scrapy.http import Response
 
 from scrapper.spiders.parse_comments import parse_comments
 from scrapper.spiders.parse_posts import parse_posts
@@ -11,16 +14,18 @@ class MFDSpider(Spider):
     start_urls = ['http://forum.mfd.ru/forum/subforum/?id=649']
     handle_httpstatus_list = [301, 302]
 
-    def parse_comments(self, response):
+    def parse_comments(self, response: Response) -> Iterator[Any]:
         yield from parse_comments(response, self.base_url)
 
-    def parse_posts(self, response):
+    def parse_posts(self, response: Response) -> Iterator[Any]:
         yield from parse_posts(response, self.base_url, self.parse_comments)
 
-    def parse_topics(self, response):
+    def parse_topics(self, response: Response) -> Iterator[Any]:
         yield from parse_topics(response, self.base_url, self.parse_posts)
 
-    def parse(self, response, **kwargs):
+    def parse(
+        self, response: Response, **kwargs: Dict[Any, Any]
+    ) -> Iterator[Any]:
         main_page_pagination = response.xpath(
             "//div[@class='mfd-paginator']/a/text()"
         )

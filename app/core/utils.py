@@ -1,9 +1,9 @@
 from fastapi.exceptions import HTTPException
 
+from app.config import config
+
 
 def get_size() -> int:
-    from app.config import config
-
     return config.PAGE_SIZE
 
 

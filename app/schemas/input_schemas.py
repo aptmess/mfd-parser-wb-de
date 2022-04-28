@@ -9,7 +9,7 @@ class Pagination(BaseModel):
         title='Count Posts',
         description='Number of posts on page',
         ge=1,
-        le=15,
+        le=200000,
     )
     page: Optional[int] = Field(
         1,
@@ -32,7 +32,7 @@ class SearchByTextInputModel(Pagination):
     class Config:
         schema_extra = {
             'example': {
-                **Pagination.Config.schema_extra['example'],
+                **Pagination.Config.schema_extra['example'],  # type: ignore
                 'text': 'добрый день',
             }
         }

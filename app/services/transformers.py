@@ -1,4 +1,5 @@
 import logging
+import typing as t
 from abc import ABC, abstractmethod
 from datetime import datetime
 
@@ -26,7 +27,7 @@ class Transformer(ABC):
         )
 
     @abstractmethod
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         raise NotImplementedError
 
 
@@ -36,9 +37,9 @@ class PostIDTransformer(Transformer):
     xpath: "table//button[@class='mfd-button-attention']/@data-id"
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         input_data[self._column_name] = int(self._xpath_value)
-        return input_data, True if self._xpath_value is not None else False
+        return input_data, self._xpath_value is not None
 
 
 class PostIsDeletedTransformer(Transformer):
@@ -47,7 +48,7 @@ class PostIsDeletedTransformer(Transformer):
     xpath: "table//div[@class='mfd-post-remark']/text()"
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         input_data[self._column_name] = (
             self._xpath_value is not None and 'удалено' in self._xpath_value
         )
@@ -63,12 +64,13 @@ class PostRating(Transformer):
         /span/text()
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         try:
             input_data[self._column_name] = (
                 int(self._xpath_value) if self._xpath_value != '\xa0' else 0
             )
-        except Exception as ex:
+        except ValueError as ex:
+            log.error(ex)
             input_data[self._column_name] = 0
         return input_data, True
 
@@ -82,7 +84,7 @@ class PostCreatedAt(Transformer):
         /a[@class='mfd-post-link']/text()
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         datetime_object = datetime.strptime(self._xpath_value, '%d.%m.%Y %H:%M')
         input_data[self._column_name] = datetime_object
         return input_data, True
@@ -97,7 +99,7 @@ class PostText(Transformer):
         /a[@class='mfd-post-link']/text()
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         input_data[self._column_name] = (
             remove_tags(self._xpath_value.replace('<br>', '\n'))
             if self._xpath_value is not None
@@ -115,7 +117,7 @@ class PostAnsweredPosts(Transformer):
         /a[@class='mfd-post-link']/text()
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         input_data[self._column_name] = ', '.join(
             [i.rpartition('id=')[2] for i in self._xpath_value]
         )
@@ -131,14 +133,15 @@ class AuthorID(Transformer):
         /@title
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         okay_result = True
         try:
             input_data[self._column_name] = int(
                 self._xpath_value.rpartition('ID: ')[2]
             )
 
-        except Exception as ex:
+        except ValueError as ex:
+            log.error(ex)
             okay_result = False
         return input_data, okay_result
 
@@ -152,10 +155,11 @@ class AuthorName(Transformer):
         /@title
     """
 
-    def transform(self, input_data: Item) -> (Item, bool):
+    def transform(self, input_data: Item) -> t.Tuple[Item, bool]:
         okay_result = True
         try:
             input_data[self._column_name] = remove_tags(self._xpath_value)
-        except Exception as ex:
+        except ValueError as ex:
+            log.error(ex)
             okay_result = False
         return input_data, okay_result

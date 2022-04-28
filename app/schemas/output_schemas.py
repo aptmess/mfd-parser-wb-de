@@ -14,3 +14,8 @@ class PostOutput(BaseModel):
     related_to: Optional[str]
     topic_id: int
     author_id: int
+
+
+class PostsOutput(BaseModel):
+    amount: int
+    result: list[PostOutput]
