@@ -43,7 +43,7 @@ class MainRoutes:
         )
 
     @router.post('/search', response_model=PostsOutput)
-    def search_post_by_page(self, body: SearchByTextInputModel) -> PostsOutput:
+    def search_post_by_text(self, body: SearchByTextInputModel) -> PostsOutput:
         """
         Эндпойнт /search для поиска постов по тексту:
             на вход в API приходит запрос с текстом и

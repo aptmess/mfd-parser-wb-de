@@ -5,14 +5,14 @@ from pydantic import BaseModel, Field
 
 class Pagination(BaseModel):
     count: Optional[int] = Field(
-        5,
+        None,
         title='Count Posts',
         description='Number of posts on page',
         ge=1,
         le=200000,
     )
     page: Optional[int] = Field(
-        1,
+        None,
         title='Page number',
         description='Page number result for query',
         ge=1,
